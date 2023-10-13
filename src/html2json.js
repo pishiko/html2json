@@ -1,10 +1,7 @@
-(function(global) {
+import { HTMLParser } from '../lib/Pure-JavaScript-HTML5-Parser/htmlparser.js';
+
   const DEBUG = false;
   var debug = DEBUG ? console.log.bind(console) : function(){};
-
-  if (typeof module === 'object' && typeof module.exports === 'object') {
-    require('../lib/Pure-JavaScript-HTML5-Parser/htmlparser.js');
-  }
 
   function q(v) {
     return '"' + v + '"';
@@ -17,7 +14,7 @@
       .replace(/<!DOCTYPE.*\>\n/, '');
   }
 
-  global.html2json = function html2json(html) {
+  const html2json = (html) => {
     html = removeDOCTYPE(html);
     var bufArray = [];
     var results = {
@@ -122,7 +119,7 @@
     return results;
   };
 
-  global.json2html = function json2html(json) {
+  const json2html = (json) => {
     // Empty Elements - HTML 4.01
     var empty = ['area', 'base', 'basefont', 'br', 'col', 'frame', 'hr', 'img', 'input', 'isindex', 'link', 'meta', 'param', 'embed'];
 
@@ -168,4 +165,5 @@
       return child;
     }
   };
-})(this);
+
+export {html2json, json2html}
